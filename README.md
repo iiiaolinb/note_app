@@ -1,4 +1,4 @@
-# note_app
+# Note app
 
 An application for creating notes. A very light, beautiful, simple application with a minimalistic design. There are no unnecessary pop-ups and confirmation questions in the application.
 
