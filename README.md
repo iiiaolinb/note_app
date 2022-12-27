@@ -5,7 +5,7 @@ An application for creating notes. A very light, beautiful, simple application w
 With this application, you can create notes. Notes are stored in the device memory (Core Data). You can add pictures to a note and text with attributes. On the main screen, you can see the contents of the note in a thumbnail and scroll through it. In addition, the application has a dark theme and localization.
 
 
-**Stack:
+**Stack:**
 
 * - MVP
 
