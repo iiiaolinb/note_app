@@ -11,6 +11,8 @@ With this application, you can create notes. Notes are stored in the device memo
 
 * - CoreData
 
+* - UserDefaults
+
 * - Localization
 
 * - Dark them
