@@ -1,6 +1,9 @@
 import UIKit
 
 enum Constants {
+    enum Keys {
+        static var isFirstRun = "isFirstRun"
+    }
     enum Font {
         static var textHeader = UIFont(name: "Graphik", size: 30)
         static var textMain = UIFont(name: "Graphik", size: 15)

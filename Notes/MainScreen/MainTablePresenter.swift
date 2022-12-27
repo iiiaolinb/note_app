@@ -23,6 +23,14 @@ protocol MainTablePresenterOutput {
 
 final class MainTablePresenter: NSObject {
     
+        //support you to understand
+        //whether the app has already been launched
+    private let defaults: UserDefaults = {
+        let defaults = UserDefaults.standard
+        defaults.data(forKey: Constants.Keys.isFirstRun)
+        return defaults
+    }()
+    
     private var viewController: MainTablePresenterOutput?
     
     private let persistentContainer = NSPersistentContainer(name: "NotesModel")
@@ -52,13 +60,37 @@ final class MainTablePresenter: NSObject {
             if let error = error {
                 print("Error load persistent stores : \(error.localizedDescription)")
             } else {
-                do {
-                    try self.fetchedResultsController.performFetch()
-                } catch {
-                    print("Error perform fetch : \(error.localizedDescription)")
-                }
+                    
+                self.isFirstRun() ? self.createSampleNote() : nil
+
+                do { try self.fetchedResultsController.performFetch() }
+                catch { print("Error perform fetch : \(error.localizedDescription)") }
             }
         }
+    }
+    
+        //is the app starting for the first time?
+    private func isFirstRun() -> Bool {
+        print("DEFAULT - \(defaults.bool(forKey: Constants.Keys.isFirstRun))")
+        switch defaults.bool(forKey: Constants.Keys.isFirstRun) {
+        case false:
+            defaults.set(true, forKey: Constants.Keys.isFirstRun)
+            return true
+        case true:
+            return false
+        }
+    }
+    
+        //function create new note with name "Sample note"
+        //for the first run app
+    private func createSampleNote() {
+        let note = Note.init(entity: NSEntityDescription.entity(forEntityName: "Note",
+                                                                in: self.persistentContainer.viewContext)!,
+                             insertInto: self.persistentContainer.viewContext)
+        note.name = "Sample note"
+        
+        do { try note.managedObjectContext?.save() }
+        catch { print("Error save context on first run : \(error.localizedDescription)") }
     }
 }
 
